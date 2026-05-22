@@ -1,0 +1,18 @@
+{
+  "skill_name": "xynpos-api-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design the API endpoints for a new 'promotions' resource in XynPOS. Promotions can be created, listed, activated/deactivated, and applied to transactions.",
+      "expected_output": "RESTful endpoints following XynPOS URL conventions, with proper HTTP methods, idempotency keys for POSTs, status codes, and error codes defined.",
+      "files": [],
+      "expectations": [
+        "GET /v1/promotions for list with pagination",
+        "POST /v1/promotions for create with X-Idempotency-Key",
+        "PATCH /v1/promotions/:id for update (not PUT)",
+        "POST /v1/promotions/:id/activate for action endpoint",
+        "Defines appropriate error codes (PROMOTION_NOT_FOUND, PROMOTION_EXPIRED)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "skill_name": "xynpos-go-backend",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a Go usecase for creating a new product in the product-service. It should validate that the selling price > 0, check SKU uniqueness, and save to database. Follow XynPOS patterns.",
+      "expected_output": "Clean usecase implementation with injected repository interface, proper error wrapping with fmt.Errorf, domain errors used, no direct DB access, context parameter.",
+      "files": [],
+      "expectations": [
+        "Uses repository interface (not concrete DB type)",
+        "Wraps errors with fmt.Errorf context",
+        "Returns domain.ErrSKUAlreadyExists for duplicate SKU",
+        "Has context.Context as first parameter",
+        "No gorm or database import in usecase file"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to write a Fiber HTTP handler for DELETE /v1/products/:id. The handler should soft-delete the product. Show me the complete handler following XynPOS conventions.",
+      "expected_output": "Handler that gets tenantID from c.Locals (JWT), calls usecase, returns standard response format. No business logic in handler.",
+      "files": [],
+      "expectations": [
+        "Gets tenantID from c.Locals(\"tenantID\") not from request",
+        "Uses response.Success() or response.Error() from shared package",
+        "No business logic — just orchestrates usecase call",
+        "Proper HTTP status code (204 or 200 for delete)",
+        "Maps domain errors to appropriate HTTP responses"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review this Go code and tell me what's wrong:\n\nfunc DeleteProduct(c *fiber.Ctx) error {\n    tenantID := c.Query(\"tenant_id\")\n    id := c.Params(\"id\")\n    db.Exec(\"DELETE FROM products WHERE id = '\" + id + \"' AND tenant_id = '\" + tenantID + \"'\")\n    fmt.Println(\"deleted product:\", id)\n    return c.JSON(map[string]bool{\"ok\": true})\n}",
+      "expected_output": "Identifies multiple violations: tenantID from query (security), SQL injection via string concat, fmt.Println instead of zap, non-standard response format, and no error handling.",
+      "files": [],
+      "expectations": [
+        "Identifies SQL injection vulnerability",
+        "Identifies tenantID from query as security violation",
+        "Flags fmt.Println as violation (should use zap)",
+        "Flags non-standard response format",
+        "Flags missing error handling"
+      ]
+    }
+  ]
+}

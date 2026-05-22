@@ -1,0 +1,32 @@
+{
+  "skill_name": "xynpos-frontend",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a React component for a product list page in the web-dashboard. It should fetch products from the API, show a loading skeleton, handle errors, and support search filtering.",
+      "expected_output": "Component using useQuery from TanStack Query, proper loading/error/empty states, search via API params, TypeScript typed props, no direct fetch calls.",
+      "files": [],
+      "expectations": [
+        "Uses useQuery not useState+useEffect",
+        "Has isLoading state handling",
+        "Has error state handling",
+        "Has empty state handling",
+        "Uses TypeScript with no 'any' types",
+        "API call via api client not direct fetch"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What's wrong with this code?\nconst [products, setProducts] = useState([])\nuseEffect(() => {\n  fetch('/api/v1/products').then(r => r.json()).then(setProducts)\n}, [])\nreturn <div>{products.map(p => <div key={p.id}>{p.name}</div>)}</div>",
+      "expected_output": "Identifies useState+useEffect for server data as violation, no loading state, no error handling, direct fetch instead of api client, and suggests TanStack Query replacement.",
+      "files": [],
+      "expectations": [
+        "Identifies useState+useEffect anti-pattern for server data",
+        "Points out missing loading state",
+        "Points out missing error handling",
+        "Suggests TanStack Query as replacement",
+        "Notes direct fetch should use api client"
+      ]
+    }
+  ]
+}

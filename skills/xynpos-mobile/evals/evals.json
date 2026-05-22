@@ -1,0 +1,31 @@
+{
+  "skill_name": "xynpos-mobile",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a Riverpod CartNotifier that handles adding products to cart, calculating totals, and applying discounts. Follow XynPOS Flutter patterns.",
+      "expected_output": "AsyncNotifier or Notifier with proper state, addItem/removeItem/applyDiscount methods, granular providers for total/items separately, Either pattern for error handling.",
+      "files": [],
+      "expectations": [
+        "Uses Notifier or AsyncNotifier not ChangeNotifier",
+        "Has separate providers for cart total (granular)",
+        "const constructor on widget classes that use it",
+        "No StatelessWidget with ref — uses ConsumerWidget",
+        "Proper Either<Failure, T> return on mutations"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The app needs to work when internet is down. How do I make the createTransaction feature work offline in the Flutter app?",
+      "expected_output": "Explains offline-first flow: generate local_id, save to Hive, update local stock optimistically, try server if online, queue sync via WorkManager if offline.",
+      "files": [],
+      "expectations": [
+        "Mentions Hive for local storage",
+        "Explains local_id as idempotency key",
+        "Mentions WorkManager for background sync",
+        "Explains optimistic stock update",
+        "Describes sync-when-online flow"
+      ]
+    }
+  ]
+}

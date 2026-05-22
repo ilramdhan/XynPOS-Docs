@@ -1,0 +1,41 @@
+{
+  "skill_name": "xynpos-context",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm about to start working on the inventory-service. What does this service do, what port does it run on, and what's its internal folder structure?",
+      "expected_output": "Explains inventory-service responsibility (stock, movements, PO, stocktake, transfer), port 8004, and the standard Go service structure with domain/repository/usecase/delivery/event layers.",
+      "files": [],
+      "expectations": [
+        "Mentions port 8004",
+        "Describes stock management responsibility",
+        "Explains clean architecture layer structure",
+        "Mentions golang-migrate for migrations"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Quick question: what does a success response look like for a list endpoint in XynPOS API? And what about an error response?",
+      "expected_output": "Shows exact JSON format with success:true, data array, and meta object with pagination; also shows error format with success:false, error object with code and message.",
+      "files": [],
+      "expectations": [
+        "Shows success:true with data array",
+        "Includes meta with page/per_page/total fields",
+        "Shows error format with code and message fields",
+        "Mentions HTTP status codes"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "New dev here. How does multi-tenancy work in XynPOS? Where does a tenant's product data live?",
+      "expected_output": "Explains schema-per-tenant model where each tenant has tenant_{uuid} PostgreSQL schema. Products are in that tenant schema. search_path is set per request from JWT claims.",
+      "files": [],
+      "expectations": [
+        "Explains schema-per-tenant with tenant_{uuid} naming",
+        "Mentions search_path set from JWT",
+        "States tenantID must come from JWT not request",
+        "Mentions PostgreSQL schema isolation"
+      ]
+    }
+  ]
+}

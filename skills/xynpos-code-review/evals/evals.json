@@ -1,0 +1,18 @@
+{
+  "skill_name": "xynpos-code-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Please review this Go code for XynPOS compliance:\n\nfunc (h *Handler) GetTransaction(c *fiber.Ctx) error {\n    id := c.Params(\"id\")\n    tenantID := c.Query(\"tenant\")\n    var tx Transaction\n    h.db.Raw(\"SELECT * FROM transactions WHERE id = '\" + id + \"'\").Scan(&tx)\n    log.Printf(\"fetched tx %s for tenant %s\", id, tenantID)\n    return c.JSON(fiber.Map{\"transaction\": tx})\n}",
+      "expected_output": "Identifies BLOCKERS: tenant from query, SQL injection, SELECT *, log.Printf, non-standard response. Provides corrected example with all issues fixed.",
+      "files": [],
+      "expectations": [
+        "Marks tenant from query as BLOCKER",
+        "Marks SQL injection as BLOCKER",
+        "Marks non-standard response as BLOCKER",
+        "Mentions SELECT * issue",
+        "Provides corrected code example with all fixes applied"
+      ]
+    }
+  ]
+}

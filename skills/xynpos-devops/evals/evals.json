@@ -1,0 +1,31 @@
+{
+  "skill_name": "xynpos-devops",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a Dockerfile for the pos-service Go microservice following XynPOS rules.",
+      "expected_output": "Multi-stage Dockerfile: builder stage with golang:1.22-alpine, runtime with alpine:3.19, non-root user, pinned versions, HEALTHCHECK, EXPOSE.",
+      "files": [],
+      "expectations": [
+        "Uses multi-stage build (2+ FROM statements)",
+        "Pins exact Go and Alpine versions (no :latest)",
+        "Creates non-root user and uses USER instruction",
+        "Includes HEALTHCHECK instruction",
+        "Uses -ldflags for binary optimization"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What's wrong with this Dockerfile?\nFROM golang:latest\nWORKDIR /app\nCOPY . .\nRUN go build -o main .\nCMD [\"./main\"]",
+      "expected_output": "Identifies: latest tag, single-stage build, runs as root, no healthcheck, no .dockerignore.",
+      "files": [],
+      "expectations": [
+        "Flags :latest tag",
+        "Flags single-stage build",
+        "Flags running as root (no non-root user)",
+        "Flags missing HEALTHCHECK",
+        "Provides corrected multi-stage example"
+      ]
+    }
+  ]
+}

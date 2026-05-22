@@ -1,0 +1,18 @@
+{
+  "skill_name": "xynpos-security",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this Go handler for security issues:\nfunc GetReport(c *fiber.Ctx) error {\n    tenantID := c.Query(\"tenant_id\")\n    start := c.Query(\"start\")\n    var txs []Transaction\n    db.Exec(\"SELECT * FROM transactions WHERE tenant_id = '\" + tenantID + \"' AND created_at >= '\" + start + \"'\")\n    log.Printf(\"report for tenant %s\", tenantID)\n    return c.JSON(fiber.Map{\"data\": txs})\n}",
+      "expected_output": "Identifies: tenant_id from query (CWE-284), SQL injection via string concat (CWE-89), SELECT * unnecessarily, standard log.Printf should be zap, non-standard response format.",
+      "files": [],
+      "expectations": [
+        "Identifies SQL injection vulnerability (string concat in SQL)",
+        "Identifies tenant_id from query as auth bypass",
+        "Mentions CWE identifiers or explains severity",
+        "Provides corrected code example",
+        "Notes non-standard response format"
+      ]
+    }
+  ]
+}

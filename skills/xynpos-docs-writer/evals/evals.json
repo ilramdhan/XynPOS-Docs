@@ -1,0 +1,19 @@
+{
+  "skill_name": "xynpos-docs-writer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We decided to use ClickHouse for analytics queries instead of PostgreSQL read replica for the report-service. Write an ADR for this decision.",
+      "expected_output": "Well-structured ADR following XynPOS format with status, date, context explaining why PG read replica is insufficient, decision to use ClickHouse, rationale, consequences/tradeoffs, and rejected alternatives.",
+      "files": [],
+      "expectations": [
+        "Has Status, Tanggal, Decider fields",
+        "Konteks explains the problem with current read replica approach",
+        "Keputusan is specific about ClickHouse version and use case",
+        "Alasan lists multiple technical justifications",
+        "Konsekuensi acknowledges operational complexity tradeoff",
+        "Review trigger condition defined"
+      ]
+    }
+  ]
+}

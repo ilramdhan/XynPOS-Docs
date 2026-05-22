@@ -1,0 +1,29 @@
+{
+  "skill_name": "xynpos-database",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to add a batch_number and expired_date column to the inventory table for the apotek feature. Write the migration SQL.",
+      "expected_output": "Up migration adding batch_number VARCHAR and expired_date DATE columns with proper defaults, and a down migration that drops them. Uses TIMESTAMPTZ conventions.",
+      "files": [],
+      "expectations": [
+        "Creates .up.sql with ALTER TABLE ADD COLUMN",
+        "Creates .down.sql that reverses the change",
+        "Uses TIMESTAMPTZ or DATE for date columns",
+        "Adds index on expired_date for query performance"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "This query is slow in production: SELECT * FROM transactions WHERE outlet_id = $1 AND status = 'completed' ORDER BY created_at DESC LIMIT 20. How do I optimize it?",
+      "expected_output": "Identifies SELECT * as problem, suggests composite index on (outlet_id, status, created_at DESC), and shows EXPLAIN ANALYZE usage.",
+      "files": [],
+      "expectations": [
+        "Identifies SELECT * inefficiency",
+        "Suggests composite index on (outlet_id, status, created_at)",
+        "Shows EXPLAIN ANALYZE usage",
+        "Mentions specifying needed columns in SELECT"
+      ]
+    }
+  ]
+}
